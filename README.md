@@ -17,12 +17,14 @@ AI Agent Developer with hands-on experience across construction, energy consulti
 
 | Metric | Value |
 |--------|-------|
-| Production Code | 75,000+ lines |
+| Production Code | 363,000+ lines |
 | Production Systems | 5 deployed |
-| Git Commits | 142 |
+| Git Commits | 126 |
 | AI Tools Built | 12 specialized agents |
 | Monthly Recurring Revenue | $500 |
 | Revenue Pipeline | $2,000+ |
+| Cost Efficiency | 918x |
+| Development Value | $458,900 in 65 days |
 
 ## 🚀 Featured Projects
 
