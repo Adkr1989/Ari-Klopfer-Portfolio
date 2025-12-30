@@ -148,8 +148,7 @@ FDA/GMP/HACCP compliance assistant for food and pharmaceutical manufacturers. Lo
 
 ## 📄 Professional Documents
 
-- **Resume:** [View HTML](./docs/resume.html) | [Download PDF](./docs/resume.pdf)
-- **Curriculum Vitae:** [View HTML](./docs/cv.html) | [Download PDF](./docs/cv.pdf)
+**Resume and CV available upon request** - Contact me at Ariklopfer@gmail.com or (312) 646-8344
 
 ## 🎨 Portfolio Showcases
 
