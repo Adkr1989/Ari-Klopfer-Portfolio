@@ -1,0 +1,1175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ari Klopfer | AI Agent Developer & Integration Specialist</title>
+    <meta name="description" content="From electrical systems to AI systems. Building production AI agents with Claude, MCP, and enterprise integrations.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-tertiary: #1a1a24;
+            --text-primary: #e4e4e7;
+            --text-secondary: #a1a1aa;
+            --text-muted: #71717a;
+            --accent-green: #22c55e;
+            --accent-blue: #3b82f6;
+            --accent-purple: #a855f7;
+            --accent-amber: #f59e0b;
+            --accent-cyan: #06b6d4;
+            --border-color: #27272a;
+            --glow-green: rgba(34, 197, 94, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Scanline effect - subtle */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent,
+                transparent 2px,
+                rgba(0, 0, 0, 0.03) 2px,
+                rgba(0, 0, 0, 0.03) 4px
+            );
+            z-index: 1000;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Terminal Header */
+        .terminal-header {
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .terminal-bar {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .dot.red { background: #ef4444; }
+        .dot.yellow { background: #eab308; }
+        .dot.green { background: #22c55e; }
+
+        .terminal-title {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .terminal-path {
+            color: var(--accent-cyan);
+            margin-left: auto;
+            font-size: 13px;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 80px 0 60px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .prompt-line {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 8px;
+        }
+
+        .prompt {
+            color: var(--accent-green);
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .command {
+            color: var(--text-primary);
+        }
+
+        .output {
+            padding-left: 32px;
+            margin-bottom: 24px;
+        }
+
+        .name-display {
+            font-size: 48px;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+        }
+
+        .title-display {
+            font-size: 20px;
+            color: var(--accent-green);
+            margin-bottom: 24px;
+        }
+
+        .bio-text {
+            font-size: 15px;
+            color: var(--text-secondary);
+            max-width: 700px;
+            line-height: 1.8;
+        }
+
+        .bio-text .highlight {
+            color: var(--accent-amber);
+        }
+
+        .bio-text .highlight-blue {
+            color: var(--accent-blue);
+        }
+
+        /* Stats Grid */
+        .stats-section {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .section-header {
+            margin-bottom: 32px;
+        }
+
+        .section-header .prompt-line {
+            margin-bottom: 16px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 24px;
+        }
+
+        .stat-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+            transition: all 0.2s ease;
+        }
+
+        .stat-card:hover {
+            border-color: var(--accent-green);
+            box-shadow: 0 0 20px var(--glow-green);
+        }
+
+        .stat-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--accent-green);
+            margin-bottom: 4px;
+        }
+
+        .stat-label {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Projects Section */
+        .projects-section {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .project-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .project-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 24px;
+            background: var(--bg-tertiary);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .project-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .project-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        .status-live {
+            background: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        .status-building {
+            background: var(--accent-amber);
+            color: var(--accent-amber);
+        }
+
+        .status-ready {
+            background: var(--accent-blue);
+            color: var(--accent-blue);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .project-body {
+            padding: 24px;
+        }
+
+        .project-desc {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .tech-tag {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .project-metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 16px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .metric {
+            text-align: center;
+        }
+
+        .metric-value {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--accent-cyan);
+        }
+
+        .metric-label {
+            font-size: 11px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        /* Experience Timeline */
+        .experience-section {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 32px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 8px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--border-color);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -28px;
+            top: 8px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--bg-primary);
+            border: 2px solid var(--accent-green);
+        }
+
+        .timeline-item.current::before {
+            background: var(--accent-green);
+            box-shadow: 0 0 12px var(--accent-green);
+        }
+
+        .timeline-date {
+            font-size: 12px;
+            color: var(--accent-green);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .timeline-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+
+        .timeline-company {
+            font-size: 14px;
+            color: var(--accent-blue);
+            margin-bottom: 12px;
+        }
+
+        .timeline-desc {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .timeline-desc li {
+            margin-bottom: 8px;
+            list-style: none;
+            position: relative;
+            padding-left: 20px;
+        }
+
+        .timeline-desc li::before {
+            content: '>';
+            position: absolute;
+            left: 0;
+            color: var(--accent-green);
+        }
+
+        /* Skills Section */
+        .skills-section {
+            padding: 60px 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+        }
+
+        .skill-category {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 24px;
+        }
+
+        .skill-category-title {
+            font-size: 14px;
+            color: var(--accent-purple);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skill-item {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+        }
+
+        .skill-item:hover {
+            border-color: var(--accent-green);
+            color: var(--text-primary);
+        }
+
+        .skill-item.primary {
+            border-color: var(--accent-green);
+            color: var(--accent-green);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 60px 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .contact-item {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            text-decoration: none;
+            color: var(--text-secondary);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .contact-item:hover {
+            border-color: var(--accent-green);
+            color: var(--text-primary);
+            transform: translateY(-2px);
+        }
+
+        .contact-icon {
+            font-size: 20px;
+        }
+
+        .contact-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .contact-value {
+            font-size: 14px;
+            margin-top: 4px;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 40px 0;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .footer-prompt {
+            color: var(--accent-green);
+        }
+
+        /* Cursor blink */
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background: var(--accent-green);
+            animation: blink 1s infinite;
+            vertical-align: middle;
+            margin-left: 4px;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+
+        /* Code block styling */
+        .code-block {
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            overflow-x: auto;
+        }
+
+        .code-comment {
+            color: var(--text-muted);
+        }
+
+        .code-keyword {
+            color: var(--accent-purple);
+        }
+
+        .code-string {
+            color: var(--accent-green);
+        }
+
+        .code-function {
+            color: var(--accent-blue);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .name-display {
+                font-size: 32px;
+            }
+
+            .title-display {
+                font-size: 16px;
+            }
+
+            .hero {
+                padding: 40px 0;
+            }
+
+            .terminal-path {
+                display: none;
+            }
+        }
+
+        /* Narrative callout */
+        .narrative-box {
+            background: linear-gradient(135deg, var(--bg-secondary), var(--bg-tertiary));
+            border: 1px solid var(--border-color);
+            border-left: 3px solid var(--accent-amber);
+            border-radius: 8px;
+            padding: 24px;
+            margin: 32px 0;
+        }
+
+        .narrative-title {
+            color: var(--accent-amber);
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 12px;
+        }
+
+        .narrative-text {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.8;
+            font-family: 'Inter', sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <!-- Terminal Header -->
+    <header class="terminal-header">
+        <div class="container">
+            <div class="terminal-bar">
+                <div class="terminal-dots">
+                    <span class="dot red"></span>
+                    <span class="dot yellow"></span>
+                    <span class="dot green"></span>
+                </div>
+                <span class="terminal-title">ari@portfolio ~ </span>
+                <span class="terminal-path">~/projects/career</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="prompt-line">
+                <span class="prompt">$</span>
+                <span class="command">whoami --verbose</span>
+            </div>
+            <div class="output">
+                <h1 class="name-display">Ari Klopfer</h1>
+                <p class="title-display">AI Agent & Developer Tools Engineer</p>
+                <p class="bio-text">
+                    I wire buildings and I wire AI systems. Started in <span class="highlight">electrical infrastructure</span>
+                    and <span class="highlight">live event production</span>, now building autonomous AI agents
+                    that handle real business operations. Currently shipping production systems with
+                    <span class="highlight-blue">Claude Code</span>, <span class="highlight-blue">MCP servers</span>,
+                    and multi-agent orchestration.
+                </p>
+                <p class="bio-text" style="margin-top: 16px;">
+                    Chicago-based. ComEd certified. Building the bridge between
+                    electrical systems and AI systems.
+                </p>
+            </div>
+
+            <div class="narrative-box">
+                <div class="narrative-title">// The Uncommon Path</div>
+                <p class="narrative-text">
+                    Most AI developers come from software. I came from crawl spaces, construction sites,
+                    and concert venues. I've operated heavy machinery at dawn and mixed live sound at midnight.
+                    I've walked through warehouses, production floors, and office buildings doing energy audits.
+                </p>
+                <p class="narrative-text" style="margin-top: 12px;">
+                    Every single place I've worked, I saw the same thing: <strong style="color: var(--accent-amber);">
+                    inefficiency hiding in plain sight.</strong> Paper forms that could be automated.
+                    Tribal knowledge that walked out the door when someone quit. Compliance tracking
+                    done in spreadsheets that nobody trusted. I couldn't stop thinking about how
+                    technology could fix it.
+                </p>
+                <p class="narrative-text" style="margin-top: 12px;">
+                    Now I build those solutions. My current employer's grant tracking system? I built it.
+                    Their energy rebate calculator? Mine too. That's not a portfolio project - that's
+                    production code handling real money, solving problems I personally witnessed for years.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="prompt-line">
+                    <span class="prompt">$</span>
+                    <span class="command">cat ./metrics.json | jq</span>
+                </div>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">363K+</div>
+                    <div class="stat-label">Production Code</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">Production Systems</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">126</div>
+                    <div class="stat-label">Git Commits</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">12</div>
+                    <div class="stat-label">AI Agents Built</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">$500</div>
+                    <div class="stat-label">Monthly Revenue</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">$2K+</div>
+                    <div class="stat-label">Revenue Pipeline</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">918x</div>
+                    <div class="stat-label">Cost Efficiency</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">$458K</div>
+                    <div class="stat-label">Dev Value (65 days)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="prompt-line">
+                    <span class="prompt">$</span>
+                    <span class="command">ls -la ./projects/</span>
+                </div>
+            </div>
+
+            <!-- EV_LV Project -->
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-name">EV_LV Grant Intelligence Platform</span>
+                    <span class="project-status status-live">
+                        <span class="status-dot" style="background: var(--accent-green)"></span>
+                        LIVE ON RAILWAY
+                    </span>
+                </div>
+                <div class="project-body">
+                    <p class="project-desc">
+                        Production AI system for EV charging grant research. Built for my employer
+                        (Law Ventures) to automate $100M+ ComEd program analysis. Features AVA,
+                        a conversational agent with 12 specialized tools for grant eligibility,
+                        NEVI compliance, and funding calculations.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Claude API</span>
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">TypeScript</span>
+                        <span class="tech-tag">Railway</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">n8n</span>
+                        <span class="tech-tag">WebSocket</span>
+                    </div>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <div class="metric-value">2,323</div>
+                            <div class="metric-label">Source Files</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">81</div>
+                            <div class="metric-label">Commits</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">12</div>
+                            <div class="metric-label">AI Tools</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">$500/mo</div>
+                            <div class="metric-label">Revenue</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ADEV Dashboard -->
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-name">ADEV Agent Orchestration Dashboard</span>
+                    <span class="project-status status-live">
+                        <span class="status-dot" style="background: var(--accent-green)"></span>
+                        RUNNING
+                    </span>
+                </div>
+                <div class="project-body">
+                    <p class="project-desc">
+                        Real-time agent orchestration platform with WebSocket streaming.
+                        Manages multiple specialized subagents (grant research, compliance,
+                        documentation) through a unified dashboard. Includes 6-module
+                        Claude Agent SDK tutorial progression.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Claude Agent SDK</span>
+                        <span class="tech-tag">FastAPI</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">WebSocket</span>
+                        <span class="tech-tag">HTTPS/TLS</span>
+                        <span class="tech-tag">MCP</span>
+                    </div>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <div class="metric-value">8,139</div>
+                            <div class="metric-label">Files</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">6</div>
+                            <div class="metric-label">Subagents</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">50</div>
+                            <div class="metric-label">Commits</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">Secure</div>
+                            <div class="metric-label">API Key Auth</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Consumer Product -->
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-name">AI Agent SaaS Platform</span>
+                    <span class="project-status status-building">
+                        <span class="status-dot" style="background: var(--accent-amber)"></span>
+                        95% COMPLETE
+                    </span>
+                </div>
+                <div class="project-body">
+                    <p class="project-desc">
+                        Full-stack SaaS application for AI agent services. React frontend
+                        with landing page, pricing tiers (Free/$99/$499/Enterprise), JWT
+                        authentication, and FastAPI backend. Stripe integration ready.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">React</span>
+                        <span class="tech-tag">Vite</span>
+                        <span class="tech-tag">FastAPI</span>
+                        <span class="tech-tag">JWT Auth</span>
+                        <span class="tech-tag">Stripe</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                    </div>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <div class="metric-value">4,339</div>
+                            <div class="metric-label">Lines of Code</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">7</div>
+                            <div class="metric-label">Components</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">4</div>
+                            <div class="metric-label">Pricing Tiers</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">Jan 20</div>
+                            <div class="metric-label">Launch Date</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Maine Scientific -->
+            <div class="project-card">
+                <div class="project-header">
+                    <span class="project-name">Maine Scientific Compliance Platform</span>
+                    <span class="project-status status-ready">
+                        <span class="status-dot" style="background: var(--accent-blue)"></span>
+                        MVP READY
+                    </span>
+                </div>
+                <div class="project-body">
+                    <p class="project-desc">
+                        FDA/GMP/HACCP compliance assistant for food and pharmaceutical
+                        manufacturers. Features local Ollama model (zero API costs),
+                        PowerShell automation tools, and 25-table compliance database.
+                    </p>
+                    <div class="tech-stack">
+                        <span class="tech-tag">Ollama</span>
+                        <span class="tech-tag">PowerShell</span>
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">21 CFR</span>
+                        <span class="tech-tag">HACCP</span>
+                    </div>
+                    <div class="project-metrics">
+                        <div class="metric">
+                            <div class="metric-value">600+</div>
+                            <div class="metric-label">Lines SQL</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">25</div>
+                            <div class="metric-label">Tables</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">994MB</div>
+                            <div class="metric-label">Local Model</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-value">$1.5K</div>
+                            <div class="metric-label">Pipeline</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section class="experience-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="prompt-line">
+                    <span class="prompt">$</span>
+                    <span class="command">git log --oneline ./career/</span>
+                </div>
+            </div>
+
+            <div class="timeline">
+                <div class="timeline-item current">
+                    <div class="timeline-date">2024 - Present</div>
+                    <div class="timeline-title">AI Agent Developer & Integration Specialist</div>
+                    <div class="timeline-company">Independent / A.Development</div>
+                    <ul class="timeline-desc">
+                        <li>Building production AI systems with Claude Agent SDK, MCP servers</li>
+                        <li>Deployed EV_LV grant intelligence platform to Railway (live, revenue-generating)</li>
+                        <li>Developing multi-agent orchestration frameworks</li>
+                        <li>363,000+ lines of production code across 5 major projects</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item current">
+                    <div class="timeline-date">Aug 2018 - Present</div>
+                    <div class="timeline-title">Energy Efficiency Consultant / Lighting Specialist</div>
+                    <div class="timeline-company">Law Ventures LTD, Chicago IL</div>
+                    <ul class="timeline-desc">
+                        <li>Energy audits and lighting system installations for commercial facilities</li>
+                        <li>LED retrofit projects and electrical system upgrades</li>
+                        <li>OSHA safety training and certification</li>
+                        <li>Currently building AI automation tools for grant tracking operations</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">2020 - 2023</div>
+                    <div class="timeline-title">Production Manager / Production Compliance Consultant</div>
+                    <div class="timeline-company">Maine Scientific, Richmond ME</div>
+                    <ul class="timeline-desc">
+                        <li>Designed scientific laboratories adhering to quality and safety standards</li>
+                        <li>Managed cannabis manufacturing production ensuring regulatory compliance</li>
+                        <li>Oversaw 8-person crew, implemented +20% efficiency improvements</li>
+                        <li>Created vitamin supplements and cannabis products for legal distribution</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Mar 2023</div>
+                    <div class="timeline-title">Production Tech Engineer</div>
+                    <div class="timeline-company">Davenports Cabaret, Chicago IL</div>
+                    <ul class="timeline-desc">
+                        <li>Managed event promotion exceeding attendance expectations</li>
+                        <li>Coordinated artists, staff, and venue technical resources</li>
+                        <li>Spearheaded promotional techniques increasing brand awareness</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Apr 2022 - Present</div>
+                    <div class="timeline-title">Event Production Manager & Creative Consultant</div>
+                    <div class="timeline-company">Bizar Entertainment, Deerfield IL</div>
+                    <ul class="timeline-desc">
+                        <li>Implemented OSHA, fire safety, rigging, and electrical standards</li>
+                        <li>Managed logistics coordination for equipment transport and venue setup</li>
+                        <li>Produced SOPs for safety and event management (still in use)</li>
+                        <li>Trained staff on compliance procedures reducing liability</li>
+                        <li>Collaborated with artists and vendors on large-scale events</li>
+                    </ul>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-date">Previous</div>
+                    <div class="timeline-title">Wheel Loader & Heavy Diesel Machine Operator</div>
+                    <div class="timeline-company">Ground Pros Inc, Itasca IL</div>
+                    <ul class="timeline-desc">
+                        <li>Operated wheel loaders and heavy diesel machinery for construction projects</li>
+                        <li>Maintained equipment safety standards and performed daily inspections</li>
+                        <li>Coordinated with site supervisors on material handling and logistics</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="skills-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="prompt-line">
+                    <span class="prompt">$</span>
+                    <span class="command">cat ./skills.yaml</span>
+                </div>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <div class="skill-category-title">AI & Machine Learning</div>
+                    <div class="skill-list">
+                        <span class="skill-item primary">Claude Agent SDK</span>
+                        <span class="skill-item primary">MCP Servers</span>
+                        <span class="skill-item primary">Claude Code</span>
+                        <span class="skill-item">Anthropic API</span>
+                        <span class="skill-item">Ollama</span>
+                        <span class="skill-item">LangChain</span>
+                        <span class="skill-item">RAG Systems</span>
+                        <span class="skill-item">Vector Embeddings</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-category-title">Backend & Infrastructure</div>
+                    <div class="skill-list">
+                        <span class="skill-item primary">Python</span>
+                        <span class="skill-item primary">FastAPI</span>
+                        <span class="skill-item">Node.js</span>
+                        <span class="skill-item">TypeScript</span>
+                        <span class="skill-item">PostgreSQL</span>
+                        <span class="skill-item">Railway</span>
+                        <span class="skill-item">Docker</span>
+                        <span class="skill-item">WebSocket</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-category-title">Automation & Integration</div>
+                    <div class="skill-list">
+                        <span class="skill-item primary">n8n Workflows</span>
+                        <span class="skill-item">Slack Integration</span>
+                        <span class="skill-item">API Design</span>
+                        <span class="skill-item">Webhook Systems</span>
+                        <span class="skill-item">PowerShell</span>
+                        <span class="skill-item">Airtable</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-category-title">Frontend & UI</div>
+                    <div class="skill-list">
+                        <span class="skill-item">React</span>
+                        <span class="skill-item">Vite</span>
+                        <span class="skill-item">HTML/CSS</span>
+                        <span class="skill-item">JavaScript</span>
+                        <span class="skill-item">Dashboard Design</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-category-title">Domain Expertise</div>
+                    <div class="skill-list">
+                        <span class="skill-item primary">ComEd Certified</span>
+                        <span class="skill-item primary">Energy Efficiency</span>
+                        <span class="skill-item">OSHA Certified</span>
+                        <span class="skill-item">EV Charging (NEVI)</span>
+                        <span class="skill-item">FDA/HACCP</span>
+                        <span class="skill-item">Grant Programs</span>
+                    </div>
+                </div>
+
+                <div class="skill-category">
+                    <div class="skill-category-title">Creative & Production</div>
+                    <div class="skill-list">
+                        <span class="skill-item">Live Sound Mixing</span>
+                        <span class="skill-item">LED Mapping</span>
+                        <span class="skill-item">Event Production</span>
+                        <span class="skill-item">AV Technology</span>
+                        <span class="skill-item">DMX Control</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="section-header">
+                <div class="prompt-line">
+                    <span class="prompt">$</span>
+                    <span class="command">cat ./contact.txt<span class="cursor"></span></span>
+                </div>
+            </div>
+
+            <div class="contact-grid">
+                <a href="mailto:your.email@domain.com" class="contact-item">
+                    <span class="contact-icon">@</span>
+                    <div>
+                        <div class="contact-label">Email</div>
+                        <div class="contact-value">Get in touch</div>
+                    </div>
+                </a>
+                <a href="tel:+13126468344" class="contact-item">
+                    <span class="contact-icon">#</span>
+                    <div>
+                        <div class="contact-label">Phone</div>
+                        <div class="contact-value">(312) 646-8344</div>
+                    </div>
+                </a>
+                <a href="https://github.com/yourusername" class="contact-item" target="_blank">
+                    <span class="contact-icon">&lt;/&gt;</span>
+                    <div>
+                        <div class="contact-label">GitHub</div>
+                        <div class="contact-value">View Code</div>
+                    </div>
+                </a>
+                <a href="https://linkedin.com/in/yourusername" class="contact-item" target="_blank">
+                    <span class="contact-icon">in</span>
+                    <div>
+                        <div class="contact-label">LinkedIn</div>
+                        <div class="contact-value">Connect</div>
+                    </div>
+                </a>
+            </div>
+
+            <div style="margin-top: 40px; text-align: center;">
+                <p style="color: var(--text-muted); font-size: 14px;">
+                    Chicago, IL &bull; Available for remote & hybrid opportunities
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p><span class="footer-prompt">$</span> exit</p>
+            <p style="margin-top: 12px;">&copy; 2025 Ari Klopfer. Built with code, not templates.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Subtle typing effect for bio - delayed start
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add slight randomness to stat card hover
+            document.querySelectorAll('.stat-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    const rotation = (Math.random() - 0.5) * 2;
+                    card.style.transform = `rotate(${rotation}deg)`;
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'rotate(0deg)';
+                });
+            });
+
+            // Intersection observer for fade-in animations
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.project-card, .timeline-item, .skill-category').forEach(el => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'all 0.5s ease';
+                observer.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
