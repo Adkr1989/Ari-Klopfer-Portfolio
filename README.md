@@ -1,6 +1,6 @@
 # Ari Klopfer - AI Agent Developer Portfolio
 
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue)](https://linkedin.com/in/username)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-blue)](https://www.linkedin.com/in/adevlmml)
 [![Email](https://img.shields.io/badge/Email-Contact-red)](mailto:Ariklopfer@gmail.com)
 [![Location](https://img.shields.io/badge/Location-Chicago%2C%20IL-green)]()
 
@@ -217,7 +217,7 @@ I understand how businesses actually operate—the permits, the compliance requi
 - **Email:** Ariklopfer@gmail.com
 - **Phone:** (312) 646-8344
 - **Location:** Chicago, IL 60647
-- **LinkedIn:** [Connect with me](https://linkedin.com/in/username)
+- **LinkedIn:** [Connect with me](https://www.linkedin.com/in/adevlmml)
 - **GitHub:** You're here!
 
 ## 📝 Note on Code Samples
