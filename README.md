@@ -220,11 +220,43 @@ I understand how businesses actually operate—the permits, the compliance requi
 - **LinkedIn:** [Connect with me](https://www.linkedin.com/in/adevlmml)
 - **GitHub:** You're here!
 
-## 📝 Note on Code Samples
+## 🔒 Intellectual Property & Code Samples
 
-The code samples in this repository are **sanitized, generic implementations** that demonstrate technical patterns and skills without exposing proprietary client code or intellectual property. They represent the types of systems I build, not exact implementations of client projects.
+### Important Notice
 
-For live demonstrations or more detailed technical discussions, please contact me directly.
+This portfolio contains **high-level overviews and sanitized code samples only**. The materials presented here are designed to demonstrate technical skills, architectural thinking, and business impact **without exposing proprietary intellectual property**.
+
+**What's NOT included:**
+- ❌ Production source code or proprietary implementations
+- ❌ Client-specific business logic or algorithms
+- ❌ Detailed tool configurations or API integrations
+- ❌ Proprietary data structures or database schemas
+- ❌ Custom agent implementations or routing logic
+
+**What IS included:**
+- ✅ Generic coding patterns and architectural approaches
+- ✅ Business outcomes and measurable impact
+- ✅ Technology stack and tool selections
+- ✅ High-level system architecture diagrams
+- ✅ Development methodologies and best practices
+
+### Code Sample Disclaimer
+
+All code samples in `/code-samples/` are **educational examples** that demonstrate general patterns used in AI agent development, API design, and real-time systems. They are **not production code** and do not contain any proprietary implementations.
+
+### For Detailed Technical Discussions
+
+If you're interested in:
+- Live system demonstrations
+- Detailed architecture deep-dives
+- Proprietary implementation discussions
+- Code reviews or technical assessments
+
+**Please contact me directly** at Ariklopfer@gmail.com or (312) 646-8344.
+
+---
+
+*The systems, patterns, and methodologies demonstrated in this portfolio represent significant R&D investment and competitive advantage developed over 65+ days of intensive production development.*
 
 ---
 

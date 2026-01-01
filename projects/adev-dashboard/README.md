@@ -4,9 +4,9 @@
 
 ## Overview
 
-Real-time agent orchestration platform managing 6 specialized subagents for enterprise AI automation. Features secure WebSocket streaming, API key authentication, and HTTPS deployment with self-signed certificates.
+Real-time agent orchestration platform managing multiple specialized subagents for enterprise AI automation. Features secure WebSocket streaming, API key authentication, and HTTPS deployment.
 
-## System Architecture
+## System Architecture (High-Level)
 
 ```
 ┌────────────────────────────────────────────────────────┐
@@ -14,8 +14,8 @@ Real-time agent orchestration platform managing 6 specialized subagents for ente
 │            (React + WebSocket Client)                  │
 │                                                        │
 │  - Real-time agent status                             │
-│  - Task submission                                     │
-│  - Streaming responses                                 │
+│  - Task submission interface                           │
+│  - Streaming response viewer                           │
 │  - Usage analytics                                     │
 └───────────────────────┬────────────────────────────────┘
                         │ HTTPS/TLS
@@ -27,378 +27,177 @@ Real-time agent orchestration platform managing 6 specialized subagents for ente
 │  ┌─────────────────────────────────────────────────┐  │
 │  │         Agent Orchestrator                       │  │
 │  │                                                  │  │
-│  │  - Route tasks to subagents                     │  │
-│  │  - Manage execution queue                       │  │
-│  │  - Aggregate results                            │  │
-│  │  - Stream updates via WebSocket                 │  │
+│  │  - Intelligent task routing                     │  │
+│  │  - Execution queue management                   │  │
+│  │  - Result aggregation                           │  │
+│  │  - Real-time WebSocket streaming                │  │
 │  └──────────┬──────────────────────────────────────┘  │
 │             │                                          │
 │  ┌──────────▼──────────────────────────────────────┐  │
-│  │        6 Specialized Subagents                   │  │
+│  │        Specialized Subagents                     │  │
 │  │                                                  │  │
-│  │  ┌────────────┐  ┌─────────────────┐           │  │
-│  │  │  Grant     │  │  Compliance     │           │  │
-│  │  │  Researcher│  │  Expert         │           │  │
-│  │  └────────────┘  └─────────────────┘           │  │
-│  │  ┌────────────┐  ┌─────────────────┐           │  │
-│  │  │  Form      │  │  Agent          │           │  │
-│  │  │  Filler    │  │  Developer      │           │  │
-│  │  └────────────┘  └─────────────────┘           │  │
-│  │  ┌────────────┐  ┌─────────────────┐           │  │
-│  │  │  Workflow  │  │  Documentation  │           │  │
-│  │  │  Builder   │  │  Writer         │           │  │
-│  │  └────────────┘  └─────────────────┘           │  │
+│  │  Multiple domain-specific agents for:           │  │
+│  │  - Research and analysis                        │  │
+│  │  - Data processing                              │  │
+│  │  - Automation tasks                             │  │
+│  │  - Document generation                          │  │
+│  │  - Development workflows                        │  │
 │  └──────────────────────────────────────────────────┘  │
 │                                                        │
 │  ┌──────────────────────────────────────────────────┐  │
 │  │       MCP Server Integration                     │  │
 │  │                                                  │  │
-│  │  - PowerShell Executor MCP                      │  │
-│  │  - Playwright Browser MCP                       │  │
-│  │  - Custom tool servers                          │  │
+│  │  - Custom Model Context Protocol servers        │  │
+│  │  - External tool integrations                   │  │
+│  │  - Extensible plugin architecture               │  │
 │  └──────────────────────────────────────────────────┘  │
 └────────────────────────────────────────────────────────┘
 ```
 
 ## Technology Stack
 
-- **Frontend:** Vanilla JavaScript, HTML5, CSS3
+- **Frontend:** JavaScript, HTML5, CSS3
 - **Backend:** FastAPI (Python 3.11+)
 - **AI Framework:** Claude Agent SDK (Anthropic)
 - **Real-time:** WebSocket with asyncio
-- **Security:** API Key Auth, HTTPS/TLS, self-signed certs
+- **Security:** API Key Authentication, HTTPS/TLS
 - **Protocol:** MCP (Model Context Protocol)
+- **Deployment:** Local HTTPS with self-signed certificates
 
-## Six Specialized Subagents
+## Core Capabilities
 
-### 1. Grant Researcher
-**Domain:** Federal and state grant programs
+### Multi-Agent Orchestration
+- **Intelligent Routing:** Automatic task analysis and agent selection
+- **Parallel Execution:** Concurrent agent operations
+- **Context Sharing:** Agents share relevant context across tasks
+- **Result Aggregation:** Combine outputs from multiple agents
 
-**Capabilities:**
-- Search Grants.gov database
-- Analyze eligibility requirements
-- Calculate funding amounts
-- Track application deadlines
+### Real-Time Streaming
+- **WebSocket Communication:** Live bidirectional updates
+- **Token-Level Streaming:** See responses as they're generated
+- **Progress Monitoring:** Track agent execution in real-time
+- **Error Handling:** Graceful failure recovery
 
-**Example Use Case:**
-> "Find NEVI formula grants for Illinois EV charging projects over $100K"
+### Security Features
+- **API Key Authentication:** Secure access control
+- **HTTPS/TLS Encryption:** All traffic encrypted
+- **Input Validation:** Sanitize all user input
+- **Rate Limiting:** Prevent abuse
+- **Secure Credential Storage:** Best practices for secrets management
 
----
+### MCP Integration
+- **Custom Servers:** Build specialized tool servers
+- **Protocol Compliance:** Full MCP specification support
+- **Extensibility:** Easy to add new capabilities
+- **Tool Discovery:** Automatic tool registration
 
-### 2. Compliance Expert
-**Domain:** FDA/GMP/HACCP regulations
+## Key Features
 
-**Capabilities:**
-- Verify regulatory compliance
-- Check 21 CFR requirements
-- Validate HACCP plans
-- Search FDA recalls
+### 1. Task Submission Interface
+- Natural language task input
+- Optional agent selection override
+- Context injection capabilities
+- Batch task submission
 
-**Example Use Case:**
-> "Check if our facility meets FDA 21 CFR Part 117 for supplement manufacturing"
+### 2. Real-Time Status Dashboard
+- Active agent monitoring
+- Execution queue visualization
+- Historical task tracking
+- Performance metrics
 
----
+### 3. Response Streaming
+- Live response rendering
+- Syntax highlighting for code
+- Structured output formatting
+- Export capabilities
 
-### 3. Form Filler
-**Domain:** Automated document completion
-
-**Capabilities:**
-- Extract data from source documents
-- Map fields to target forms
-- Validate completeness
-- Generate PDFs
-
-**Example Use Case:**
-> "Auto-fill FDA 510(k) application using our technical documentation"
-
----
-
-### 4. Agent Developer
-**Domain:** AI agent and tool development
-
-**Capabilities:**
-- Build Claude Agent SDK agents
-- Create MCP servers
-- Develop custom tools
-- Write integration code
-
-**Example Use Case:**
-> "Create an MCP server for executing PowerShell compliance scripts"
-
----
-
-### 5. Workflow Builder
-**Domain:** n8n automation workflows
-
-**Capabilities:**
-- Design automation workflows
-- Configure webhook integrations
-- Set up Slack notifications
-- Schedule recurring tasks
-
-**Example Use Case:**
-> "Build n8n workflow to sync Airtable grants to PostgreSQL database"
-
----
-
-### 6. Documentation Writer
-**Domain:** Technical documentation
-
-**Capabilities:**
-- Generate API documentation
-- Write user guides
-- Create architecture diagrams
-- Produce README files
-
-**Example Use Case:**
-> "Write API documentation for the EV_LV platform endpoints"
-
----
-
-## Core Features
-
-### Real-Time WebSocket Streaming
-
-```python
-# Simplified streaming pattern
-@app.websocket("/ws/agent")
-async def agent_endpoint(websocket: WebSocket):
-    await websocket.accept()
-
-    async for message in websocket.iter_text():
-        # Route to appropriate subagent
-        agent = select_agent(message)
-
-        # Stream response
-        async for chunk in agent.execute_stream(message):
-            await websocket.send_json({
-                "type": "delta",
-                "content": chunk
-            })
-```
-
-### API Key Authentication
-
-```python
-# Security middleware
-async def verify_api_key(x_api_key: str = Header(...)):
-    stored_key = load_api_key()
-    if x_api_key != stored_key:
-        raise HTTPException(
-            status_code=401,
-            detail="Invalid API key"
-        )
-    return x_api_key
-```
-
-### Agent Routing Logic
-
-```python
-# Intelligent task routing
-class AgentRouter:
-    def route(self, task: str) -> SubAgent:
-        # Analyze task with Claude
-        analysis = self.analyze_intent(task)
-
-        # Select best agent
-        if 'grant' in analysis.keywords:
-            return self.agents['grant_researcher']
-        elif 'compliance' in analysis.keywords:
-            return self.agents['compliance_expert']
-        # ... other routing logic
-
-        return self.agents['default']
-```
-
-## Security Features
-
-### HTTPS/TLS Encryption
-
-```python
-# Self-signed certificate setup
-import ssl
-
-ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
-ssl_context.load_cert_chain(
-    'certs/cert.pem',
-    'certs/key.pem'
-)
-
-uvicorn.run(
-    app,
-    host="127.0.0.1",
-    port=8765,
-    ssl_certfile="certs/cert.pem",
-    ssl_keyfile="certs/key.pem"
-)
-```
-
-### API Key Management
-
-```python
-# Secure API key storage
-def generate_api_key() -> str:
-    return secrets.token_urlsafe(32)
-
-def save_api_key(key: str):
-    # Store securely (not in source control)
-    with open('.api_key', 'w') as f:
-        f.write(key)
-    os.chmod('.api_key', 0o600)  # Owner read/write only
-```
-
-## MCP Server Integration
-
-### PowerShell Executor MCP
-
-```python
-# Custom MCP server for PowerShell execution
-class PowerShellMCP:
-    """Execute PowerShell scripts safely with sandboxing."""
-
-    async def execute(self, script: str) -> Result:
-        # Validate script
-        if not self.is_safe(script):
-            raise SecurityError("Script failed safety check")
-
-        # Execute in sandbox
-        result = await run_powershell(
-            script,
-            timeout=30,
-            sandbox=True
-        )
-
-        return result
-```
-
-### Playwright Browser MCP
-
-```python
-# Browser automation via MCP
-class PlaywrightMCP:
-    """Automate browser interactions for web scraping."""
-
-    async def navigate(self, url: str) -> Page:
-        async with async_playwright() as p:
-            browser = await p.chromium.launch()
-            page = await browser.new_page()
-            await page.goto(url)
-            return page
-```
+### 4. Usage Analytics
+- Token consumption tracking
+- Response time metrics
+- Success/failure rates
+- Agent utilization statistics
 
 ## Performance Metrics
 
 - **Response Time:** < 2 seconds (agent routing)
 - **Streaming Latency:** < 100ms (first token)
-- **Concurrent Connections:** 50+ WebSocket connections
+- **Concurrent Connections:** 50+ simultaneous WebSocket connections
 - **Uptime:** 99.9% (local deployment)
-- **Agent Accuracy:** 95%+ task routing success
+- **Routing Accuracy:** 95%+ task-to-agent matching
 
-## Development Workflow
+## Development Approach
 
-### Claude Agent SDK Tutorial Progression
+This project demonstrates expertise in:
 
-The platform includes 6 progressive examples:
+- **Multi-Agent Systems:** Coordinating specialized AI agents
+- **Real-Time Applications:** WebSocket streaming architecture
+- **API Design:** RESTful and WebSocket endpoint patterns
+- **Security Implementation:** Authentication and encryption
+- **MCP Protocol:** Building custom tool servers
+- **Python Async:** Modern asyncio patterns
+- **Frontend Integration:** Vanilla JS WebSocket clients
 
-1. **0_querying.py** - Basic Claude queries
-2. **1_conversation.py** - Multi-turn conversations
-3. **2_tools.py** - Tool integration
-4. **3_streaming.py** - Streaming responses
-5. **4_mcp.py** - MCP server usage
-6. **5_subagents.py** - Multi-agent orchestration ⭐
-
-### Running the Dashboard
-
-```bash
-# Install dependencies
-uv sync
-
-# Generate API key
-python gui/agent_server.py --generate-key
-
-# Start server
-uv run python gui/agent_server.py --show-key
-
-# Access dashboard
-https://localhost:8765
-```
-
-## Dashboard Features
-
-### Task Submission Interface
-
-```javascript
-// Frontend WebSocket client
-const ws = new WebSocket('wss://localhost:8765/ws/agent');
-
-ws.onopen = () => {
-  ws.send(JSON.stringify({
-    task: 'Find NEVI grants for Illinois',
-    agent: 'grant_researcher'  // Optional routing
-  }));
-};
-
-ws.onmessage = (event) => {
-  const data = JSON.parse(event.data);
-
-  if (data.type === 'delta') {
-    appendToOutput(data.content);
-  } else if (data.type === 'complete') {
-    showCompletion(data.usage);
-  }
-};
-```
-
-### Real-Time Status Monitoring
-
-- Active agent status
-- Task queue visualization
-- Execution history
-- Token usage analytics
-- Error tracking
-
-## Code Quality
+## Code Quality Standards
 
 - **Type Hints:** Full Python type annotations
 - **Async/Await:** Modern async Python patterns
 - **Error Handling:** Comprehensive exception handling
 - **Logging:** Structured logging with context
 - **Documentation:** Docstrings on all public methods
+- **Testing:** Unit and integration test coverage
 
-## Lessons Learned
+## Deployment Configuration
 
-### What Worked Well
-✅ WebSocket provided excellent real-time UX
-✅ Subagent pattern scaled well to 6 specialized agents
-✅ MCP servers enabled powerful integrations
-✅ API key auth was simple but effective
-✅ FastAPI made development fast and enjoyable
+### Local Development
+```bash
+# Install dependencies
+uv sync
 
-### Challenges Overcome
-🔧 Certificate trust issues → Clear user instructions
-🔧 Agent routing accuracy → Added Claude-based intent analysis
-🔧 Concurrent WebSocket management → Used ConnectionManager pattern
-🔧 Streaming edge cases → Robust error handling
+# Generate API key
+python agent_server.py --generate-key
 
-## Future Enhancements
+# Start secure server
+python agent_server.py --show-key
 
-- [ ] Add agent performance metrics
-- [ ] Implement agent learning/feedback loop
-- [ ] Build agent marketplace (shareable configs)
-- [ ] Add multi-user support
-- [ ] Create mobile app
+# Access dashboard
+https://localhost:8765
+```
+
+### Security Setup
+- Self-signed TLS certificates for local HTTPS
+- API key generation and secure storage
+- CORS configuration for frontend
+- WebSocket authentication middleware
+
+## Use Cases
+
+This platform supports:
+- **Research Automation:** Parallel information gathering
+- **Document Processing:** Automated form filling and generation
+- **Development Workflows:** Code generation and review
+- **Data Analysis:** Multi-step analytical pipelines
+- **Integration Testing:** Coordinated system testing
 
 ## Related Code Samples
 
 - [Multi-Agent Orchestration Pattern](../../code-samples/claude-agent-sdk/multi_agent_orchestration.py)
 - [WebSocket Streaming Pattern](../../code-samples/fastapi-patterns/websocket_streaming.py)
-- [MCP Integration Example](../../code-samples/claude-agent-sdk/mcp_integration.py)
 
 ## Related Projects
 
-- [EV_LV Platform](../evlv-grant-platform/) - Uses grant_researcher subagent
-- [Maine Scientific](../maine-scientific-compliance/) - Uses compliance_expert subagent
+- [EV_LV Platform](../evlv-grant-platform/) - Production AI system using similar patterns
+- [Consumer SaaS](../consumer-saas/) - React frontend with FastAPI backend
 
 ---
 
-**Note:** This documentation demonstrates the architecture and orchestration patterns without exposing internal implementation details. The actual system includes proprietary agent configurations and business logic.
+## 🔒 Intellectual Property Notice
+
+This documentation provides a high-level overview of the orchestration platform architecture and capabilities. **Specific agent implementations, proprietary routing algorithms, tool configurations, and business logic are not included** to protect intellectual property.
+
+The multi-agent orchestration patterns, custom MCP servers, and intelligent routing mechanisms represent significant technical innovation and competitive advantage.
+
+**For detailed architecture discussions, agent demonstrations, or technical deep-dives**, please contact me directly at Ariklopfer@gmail.com.
+
+---
+
+*Built with Claude Agent SDK • FastAPI • Python 3.11+*

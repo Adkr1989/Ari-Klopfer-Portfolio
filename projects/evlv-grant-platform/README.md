@@ -1,10 +1,10 @@
 # EV_LV Grant Intelligence Platform
 
-**Status:** 🟢 Production | **Revenue:** $500/month | **Client:** Law Ventures LTD
+**Status:** 🟢 Production | **Revenue:** $500/month
 
 ## Overview
 
-Production AI system for EV charging grant research serving energy consultants. Features AVA conversational agent with 12 specialized tools covering grant eligibility, NEVI compliance verification, and automated funding calculations.
+Production AI system for EV charging grant research serving energy consultants. Features conversational AI agent with specialized tools covering grant eligibility, compliance verification, and automated funding calculations.
 
 ## Business Impact
 
@@ -17,6 +17,16 @@ Production AI system for EV charging grant research serving energy consultants. 
 
 ## Technology Stack
 
+- **AI Framework:** Claude API (Anthropic)
+- **Backend:** Node.js, TypeScript, Express
+- **Database:** PostgreSQL (Supabase)
+- **Real-time:** WebSocket for streaming responses
+- **Deployment:** Railway (auto-scaling, health monitoring)
+- **Automation:** n8n Cloud (daily updates, notifications)
+- **Integration:** 7+ external APIs
+
+## System Architecture (High-Level)
+
 ```
 ┌─────────────────────────────────────────────┐
 │              Frontend Layer                 │
@@ -24,7 +34,7 @@ Production AI system for EV charging grant research serving energy consultants. 
 └──────────────────┬──────────────────────────┘
                    │
 ┌──────────────────▼──────────────────────────┐
-│          AVA Agent Core                     │
+│          AI Agent Core                      │
 │      Claude API + Orchestration             │
 │                                             │
 │  - Natural language understanding           │
@@ -36,37 +46,25 @@ Production AI system for EV charging grant research serving energy consultants. 
 ┌──────▼─────────┐          ┌────────▼────────┐
 │  Tool Manager  │          │  Context Store  │
 │                │          │                 │
-│ 12 Specialized │          │ - User prefs    │
-│ Tools:         │          │ - History       │
+│ Specialized    │          │ - User prefs    │
+│ Tools for:     │          │ - History       │
 │ - Eligibility  │          │ - State         │
 │ - Compliance   │          │ - Sessions      │
-│ - Calculator   │          └─────────────────┘
+│ - Calculation  │          └─────────────────┘
 │ - Analysis     │
-│ - Search       │
 │ - Validation   │
-│ - etc.         │
 └────────┬───────┘
          │
 ┌────────▼──────────────────────────────────────┐
 │      External API Integrations                │
 │                                               │
-│  NREL    Grants.gov    ComEd    ChargeHub    │
+│  NREL    Grants.gov    Energy DBs    Others   │
 └───────────────────────────────────────────────┘
 ```
 
-## Core Technologies
-
-- **AI Framework:** Claude API (Anthropic)
-- **Backend:** Node.js, TypeScript, Express
-- **Database:** PostgreSQL (Supabase)
-- **Real-time:** WebSocket for streaming responses
-- **Deployment:** Railway (auto-scaling, health monitoring)
-- **Automation:** n8n Cloud (daily updates, notifications)
-- **Integration:** 7+ external APIs
-
 ## Key Features
 
-### 1. Conversational Interface (AVA)
+### 1. Conversational AI Interface
 - Natural language query processing
 - Context-aware responses
 - Multi-turn conversations
@@ -96,111 +94,15 @@ Production AI system for EV charging grant research serving energy consultants. 
 - Budget optimization
 - ROI projections
 
-## Architecture Highlights
-
-### Tool Orchestration Pattern
-
-```typescript
-// Generic pattern (actual implementation uses 12 proprietary tools)
-interface Tool {
-  name: string;
-  description: string;
-  execute: (input: any) => Promise<ToolResult>;
-}
-
-class AVAAgent {
-  private tools: Tool[];
-
-  async processQuery(userQuery: string): Promise<Response> {
-    // 1. Analyze query with Claude
-    const intent = await this.analyzeIntent(userQuery);
-
-    // 2. Select appropriate tools
-    const selectedTools = this.selectTools(intent);
-
-    // 3. Execute tools in parallel or sequence
-    const results = await this.executeTools(selectedTools);
-
-    // 4. Synthesize final response
-    return this.synthesizeResponse(results, userQuery);
-  }
-}
-```
-
-### Real-time Streaming
-
-```typescript
-// WebSocket streaming for instant user feedback
-websocket.on('message', async (query) => {
-  const stream = await claude.messages.stream({
-    model: 'claude-sonnet-4',
-    messages: [{ role: 'user', content: query }],
-    tools: availableTools
-  });
-
-  for await (const chunk of stream) {
-    websocket.send(JSON.stringify({
-      type: 'delta',
-      content: chunk
-    }));
-  }
-});
-```
-
-### Automated Updates
-
-```javascript
-// n8n workflow (simplified)
-Schedule: Daily at 2:00 AM
-  ├── Fetch new grants from Grants.gov API
-  ├── Check NREL for EV program updates
-  ├── Update ComEd incentive amounts
-  ├── Sync to PostgreSQL database
-  └── Notify via Slack if changes detected
-```
-
 ## Performance Metrics
 
 - **Response Time:** < 3 seconds (95th percentile)
 - **Uptime:** 99.8% (Railway deployment)
 - **API Reliability:** 99.5% (retry logic + fallbacks)
 - **Grant Coverage:** 200,000+ indexed programs
-- **User Satisfaction:** $500/month recurring (100% retention)
+- **Client Satisfaction:** 100% retention rate
 
-## Deployment
-
-### Railway Configuration
-
-```yaml
-# Railway.json (simplified)
-{
-  "build": {
-    "builder": "NIXPACKS"
-  },
-  "deploy": {
-    "healthcheckPath": "/health",
-    "restartPolicyType": "ON_FAILURE"
-  }
-}
-```
-
-### Health Monitoring
-
-```typescript
-app.get('/health', (req, res) => {
-  const health = {
-    uptime: process.uptime(),
-    database: await checkDatabaseConnection(),
-    externalAPIs: await checkExternalAPIs(),
-    timestamp: Date.now()
-  };
-
-  const status = health.database && health.externalAPIs ? 200 : 503;
-  res.status(status).json(health);
-});
-```
-
-## Security
+## Security & Reliability
 
 - **API Key Authentication:** Secure client access
 - **Rate Limiting:** Prevent abuse
@@ -208,84 +110,49 @@ app.get('/health', (req, res) => {
 - **HTTPS/TLS:** Encrypted transport
 - **No PII Storage:** Privacy-first design
 - **SOC 2 Compliant:** Railway hosting
+- **Health Monitoring:** Automated uptime checks
+- **Automated Backups:** Daily database snapshots
 
-## Integration Examples
+## Development Approach
 
-### NREL API Integration
+This project demonstrates:
+- Production-grade AI agent development
+- Real-time WebSocket streaming
+- Multi-API integration and orchestration
+- Robust error handling and failover
+- Scalable cloud deployment
+- Automated workflow management
 
-```typescript
-// Generic pattern for external API integration
-async function fetchNRELData(location: string) {
-  const response = await fetch(
-    `https://developer.nrel.gov/api/alt-fuel-stations/v1.json?location=${location}`,
-    {
-      headers: { 'X-Api-Key': process.env.NREL_API_KEY }
-    }
-  );
+## Code Quality Standards
 
-  return response.json();
-}
-```
-
-### Grants.gov Search
-
-```typescript
-// Simplified grant search pattern
-async function searchGrants(criteria: SearchCriteria) {
-  // 1. Build query
-  const query = buildGrantsGovQuery(criteria);
-
-  // 2. Execute search
-  const results = await grantsGovClient.search(query);
-
-  // 3. Filter and rank
-  return rankResults(results, criteria);
-}
-```
-
-## Code Quality
-
-- **Test Coverage:** 100% on critical paths
 - **Type Safety:** Full TypeScript implementation
+- **Testing:** Comprehensive test coverage on critical paths
 - **Linting:** ESLint + Prettier
-- **Documentation:** JSDoc comments
-- **Error Handling:** Comprehensive try/catch
-- **Logging:** Structured logging (Winston)
-
-## Lessons Learned
-
-### What Worked Well
-✅ WebSocket streaming provided excellent UX
-✅ Claude tool use was highly accurate
-✅ Railway deployment was seamless
-✅ n8n automation saved significant manual work
-✅ PostgreSQL handled scale without issues
-
-### Challenges Overcome
-🔧 External API rate limits → Implemented caching + retry logic
-🔧 Complex eligibility rules → Built rule engine
-🔧 Data freshness → Automated daily updates
-🔧 Response time → Parallel tool execution
-
-## Future Enhancements
-
-- [ ] Multi-language support (Spanish)
-- [ ] Mobile app
-- [ ] PDF report generation
-- [ ] Historical trend analysis
-- [ ] Predictive grant alerts
+- **Documentation:** Clear inline documentation
+- **Error Handling:** Defensive programming practices
+- **Logging:** Structured logging for debugging
 
 ## Client Testimonial
 
-> "AVA has transformed our grant research process. What used to take days now takes minutes, and we're finding programs we never knew existed. The ROI is incredible."
+> "This system has transformed our grant research process. What used to take days now takes minutes, and we're finding programs we never knew existed."
 >
-> — Lori, Law Ventures LTD
+> — Energy Consulting Client
 
 ## Related Projects
 
 - [ADEV Dashboard](../adev-dashboard/) - Multi-agent orchestration platform
-- [Code Samples](../../code-samples/) - Reusable patterns
+- [Code Samples](../../code-samples/) - Reusable patterns and examples
 
 ---
 
-**Note:** This documentation showcases the architecture and approach without exposing proprietary code or client-specific business logic. For live demonstrations or detailed technical discussions, please contact me directly.
+## 🔒 Intellectual Property Notice
+
+This documentation provides a high-level overview of the system architecture and business outcomes. **Implementation details, proprietary algorithms, tool configurations, and client-specific business logic are not included** to protect intellectual property.
+
+**For detailed technical discussions, architecture deep-dives, or live demonstrations**, please contact me directly at Ariklopfer@gmail.com.
+
+The patterns and approaches demonstrated here represent significant R&D investment and competitive advantage.
+
+---
+
+*Built with Claude API • Deployed on Railway • Production-Ready*
