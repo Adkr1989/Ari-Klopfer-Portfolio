@@ -26,6 +26,8 @@ AI Agent Developer with hands-on experience across construction, energy consulti
 | Cost Efficiency | 918x |
 | Development Value | $458,900 in 65 days |
 
+> **📊 [View Comprehensive Statistics & Analysis](./PORTFOLIO_STATISTICS.md)** - Detailed benchmarks, unique findings, KPIs, and production work breakdown
+
 ## 🚀 Featured Projects
 
 ### EV_LV Grant Intelligence Platform
@@ -132,19 +134,22 @@ FDA/GMP/HACCP compliance assistant for food and pharmaceutical manufacturers. Lo
 ## 📂 Repository Structure
 
 ```
-├── docs/                    # Resume, CV, credentials
-├── projects/                # Project architecture & documentation
+├── README.md                        # Main portfolio documentation
+├── PORTFOLIO_STATISTICS.md          # 📊 Comprehensive metrics & benchmarks
+├── docs/                            # Resume, CV, credentials
+├── projects/                        # Project architecture & documentation
 │   ├── evlv-grant-platform/
 │   ├── adev-dashboard/
 │   ├── consumer-saas/
 │   └── maine-scientific-compliance/
-├── code-samples/            # Sanitized code examples
+├── code-samples/                    # Sanitized code examples
 │   ├── claude-agent-sdk/
 │   ├── fastapi-patterns/
-│   └── automation/
-├── tutorials/               # Technical guides
-└── assets/                  # Diagrams, screenshots
+│   └── tests/
+└── .gitignore                       # Comprehensive IP protection
 ```
+
+**📊 [View Detailed Statistics & Benchmarks](./PORTFOLIO_STATISTICS.md)** - Deep dive into portfolio metrics, production work breakdown, unique findings, and KPI analysis
 
 ## 📄 Professional Documents
 
