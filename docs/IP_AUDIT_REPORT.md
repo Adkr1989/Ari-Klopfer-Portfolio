@@ -11,7 +11,7 @@
 | Category | Status | Findings |
 |----------|--------|----------|
 | **Credentials/Secrets** | ✅ SAFE | No exposed API keys or tokens |
-| **Client Names** | ⚠️ REVIEW | 2 clients named publicly |
+| **Client Names** | ✅ APPROVED | 2 clients named with permission |
 | **Code Samples** | ✅ SAFE | Generic patterns, properly sanitized |
 | **Revenue Details** | ⚠️ REVIEW | Specific amounts disclosed |
 
@@ -37,17 +37,17 @@ os.getenv("API_KEY")
 
 ---
 
-### 2. Client Names: ⚠️ REQUIRES VERIFICATION
+### 2. Client Names: ✅ APPROVED
 
-**Found mentions of:**
+**Permission obtained for:**
 
-| Client | Files Mentioning | Risk Level |
-|--------|------------------|------------|
-| Law Ventures LTD | 7 files | Medium |
-| Maine Scientific | 5 files | Medium |
+| Client | Website | Permission |
+|--------|---------|------------|
+| Law Ventures LTD | [lawventuresltd.net](https://lawventuresltd.net/) | ✅ Approved |
+| Maine Scientific | [mainescientific.com](https://mainescientific.com/) | ✅ Approved |
 
 **Files with client mentions:**
-- `README.md`
+- `README.md` - Updated with website links
 - `cv.html`
 - `docs/BENCHMARKS.md`
 - `docs/index-professional.html`
@@ -55,11 +55,7 @@ os.getenv("API_KEY")
 - `projects/evlv-grant-platform/README.md`
 - `marketing/*.md` files
 
-**Recommendation:**
-- Verify written permission from clients to be named publicly
-- OR replace with generic descriptions:
-  - "Law Ventures LTD" → "Energy consulting client"
-  - "Maine Scientific" → "Food manufacturing client"
+**Status:** Client permission confirmed February 4, 2026.
 
 ---
 
@@ -108,14 +104,13 @@ credentials.json
 
 ## Action Items
 
-### Required Before Publishing:
-- [ ] Verify client permission for "Law Ventures LTD" mention
-- [ ] Verify client permission for "Maine Scientific" mention
+### Completed:
+- [x] Verify client permission for "Law Ventures LTD" mention ✅
+- [x] Verify client permission for "Maine Scientific" mention ✅
+- [x] Add client website links to README.md ✅
 
 ### Optional Improvements:
-- [ ] Consider anonymizing to "Energy consulting client"
-- [ ] Consider anonymizing to "Manufacturing compliance client"
-- [ ] Add revenue ranges instead of exact figures
+- [ ] Add revenue ranges instead of exact figures (optional)
 
 ---
 

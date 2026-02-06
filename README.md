@@ -31,7 +31,7 @@ AI Agent Developer with hands-on experience across construction, energy consulti
 ### EV_LV Grant Intelligence Platform
 **Status:** 🟢 Production | **Revenue Generating:** 
 
-Production AI system for EV charging grant research serving Law Ventures LTD. Features AVA conversational agent with 12 specialized tools covering grant eligibility (200K+ programs indexed), NEVI compliance verification, and automated funding calculations.
+Production AI system for EV charging grant research serving [Law Ventures LTD](https://lawventuresltd.net/) - a ComEd-certified EV charging and energy efficiency contractor in Chicago. Features AVA conversational agent with 12 specialized tools covering grant eligibility (200K+ programs indexed), NEVI compliance verification, and automated funding calculations.
 
 **Tech Stack:** Claude API, Node.js, TypeScript, Railway, PostgreSQL, n8n, WebSocket
 
@@ -79,9 +79,9 @@ Consumer-facing SaaS application for AI agent services with React frontend, Fast
 ---
 
 ### Maine Scientific Compliance Platform
-**Status:** 🟡 MVP Ready
+**Status:** 🟡 MVP Ready | **Client:** [Maine Scientific](https://mainescientific.com/)
 
-FDA/GMP/HACCP compliance assistant for food and pharmaceutical manufacturers. Local Ollama deployment ensures complete data privacy with zero API costs.
+FDA/GMP/HACCP compliance assistant for [Maine Scientific](https://mainescientific.com/) - a GMP consultation and formulation services company. Local Ollama deployment ensures complete data privacy with zero API costs.
 
 **Tech Stack:** Ollama, PowerShell, Python, PostgreSQL, 21 CFR, HACCP
 
